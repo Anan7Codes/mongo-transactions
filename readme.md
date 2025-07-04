@@ -17,7 +17,10 @@ A simple test project demonstrating MongoDB transactions with an in-memory queue
    ```bash
    yarn dev
    ```
-   
+
+## Environment Variables
+
+Create a `.env` file in the project root to store your environment-specific variables (such as database connection strings, secret keys, etc.). Can check `.env.local` for reference.
 
 ## Sample API Requests
 
