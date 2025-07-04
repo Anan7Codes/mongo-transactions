@@ -30,12 +30,12 @@ export async function processPaymentJob({ userId, billIds }) {
         );
         await session.commitTransaction();
         session.endSession();
-        console.log("Bills are successfully paid for user", userId);
+        console.log("Bills are successfully paid for user: ", userId);
     } catch (error) {
         await session.abortTransaction();
         session.endSession();
         console.error("[Error] Pay Bill (queue) Error:", error);
-        // To Handle Failed Jobs -> Retry?
+        // To Handle Failed Jobs -> Retry? and then notify and investigate
     }
 }
 
