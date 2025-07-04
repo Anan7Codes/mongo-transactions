@@ -30,7 +30,7 @@ curl --location 'http://localhost:3000/user/create' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "name": "Anandhu",
-    "email": "a@c.com"
+    "email": "a@b.com"
 }'
 ```
 
