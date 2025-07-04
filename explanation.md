@@ -10,6 +10,6 @@
 2. Referred to repos on Github to learn, understand & fix Mongo sessions and transactions.
 3. Firstly, we check if all the 'pending' bills are existing and linked to that user.
 4. Then in a single query, we update all the bills status to 'processing'.
-5. We add the total of all 'amount' of all the bills together to then check if the user has sufficient or valid 'balance'.
+5. We add the total 'amount' of all the bills together to then check if the user has sufficient or valid 'balance'.
 6. If all conditions are met, we commit the transaction and mark the statuses as 'paid'.
 7. Incase any of the steps goes wrong or breaks, it is immediately thrown an error and caught in the catch block where we 'abortTransaction' and 'endSession'.
