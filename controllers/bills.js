@@ -1,7 +1,6 @@
 import billModel from "../models/bills.js";
-import userModel from "../models/user.js";
-import mongoose from 'mongoose'
 import { z } from "zod";
+import { enqueuePaymentJob } from "../queue/payment.js";
 
 const createBillSchema = z.object({
     userId: z.string().min(1, "userId is required").regex(/^\w{24}$/, "Invalid userId format"),
@@ -50,48 +49,8 @@ const payBill = async (req, res) => {
             message: "Validation Error",
         });
     }
-    const session = await mongoose.startSession();
-    session.startTransaction();
-    
-    try {
-        const { userId, billIds } = req.body;
-
-        const bills = await billModel.find({ _id: { $in: billIds }, user: userId, status: 'pending' }).session(session)
-        if (bills.length !== billIds.length) {
-            throw new Error('Some bills are not found or not pending')
-        }
-        await billModel.updateMany(
-            { _id: { $in: billIds }, user: userId, status: 'pending' },
-            { $set: { status: 'processing' } },
-            { session }
-        )
-
-        const totalAmount = bills.reduce((sum, bill) => sum + bill.amount, 0)
-        const user = await userModel.findById(userId).session(session)
-        if (!user) throw new Error('User not found')
-        if (user.balance < totalAmount) {
-            throw new Error('You dont have enough balance')
-        }
-        user.balance -= totalAmount;
-        await user.save({ session })
-
-        await billModel.updateMany(
-            { _id: { $in: billIds }, user: userId, status: 'processing' },
-            { $set: { status: 'paid' } },
-            { session }
-        )
-
-        await session.commitTransaction()
-        session.endSession()
-        return res.status(200).json({ message: "Bills paid successfully" })
-    } catch (error) {
-        await session.abortTransaction()
-        session.endSession()
-        console.log("[Error] Pay Bill: ", error)
-        return res.status(400).json({ 
-            message: error.message || "Server Error" 
-        });
-    }
+    enqueuePaymentJob({ userId: req.body.userId, billIds: req.body.billIds });
+    return res.status(202).json({ message: "Payment scheduled" });
 }
 
 export {
