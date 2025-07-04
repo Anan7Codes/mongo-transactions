@@ -1,4 +1,4 @@
-Following are the changes done to do the operation using in-memory queue[a variable array].
+## Following are the changes done to do the operation using in-memory queue[a variable array] compared to the 'main' branch.
 
 1. Added zod for body parsing to ensure right and ethical data types.
 2. Once the payment api is hit, we parse and then we send the body to the queue.
