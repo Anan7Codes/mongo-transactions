@@ -1,4 +1,4 @@
-# Tern Rewards: Mongo Transactions Test with In-Memory Queue
+# Mongo Transactions Test with In-Memory Queue
 
 A simple test project demonstrating MongoDB transactions with an in-memory queue.
 
@@ -17,6 +17,7 @@ A simple test project demonstrating MongoDB transactions with an in-memory queue
    ```bash
    yarn dev
    ```
+   
 
 ## Sample API Requests
 
