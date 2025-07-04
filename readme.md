@@ -1,9 +1,9 @@
 # Mongo Transactions Test
 
-A simple test project demonstrating MongoDB transactions with an in-memory queue.
+A simple test project demonstrating MongoDB transactions.
 
 ## Folder Structure
-- `controllers/`, `models/`, `routes/`, `queue/`: Standard MVC structure with queue logic.
+- `controllers/`, `models/`, `routes/`, `queue/`: Standard MVC structure.
 - `config/`: Database configuration.
 - `main.js`: App entry point.
 
