@@ -1,4 +1,4 @@
-# Tern Rewards: Mongo Transactions Test
+# Mongo Transactions Test
 
 A simple test project demonstrating MongoDB transactions with an in-memory queue.
 
