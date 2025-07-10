@@ -17,13 +17,20 @@ const createBill = async (req, res) => {
         });
     }
     try {
-        await Promise.all(
-            req.body.bills.map((val) =>
-                billModel.create({
-                    user: req.body.userId,
-                    amount: val
-                })
-            )
+        // await Promise.all(
+        //     req.body.bills.map((val) =>
+        //         billModel.create({
+        //             user: req.body.userId,
+        //             amount: val
+        //         })
+        //     )
+        // )
+        //Changed query to insertMany
+        await billModel.insertMany(
+            req.body.bills.map((val) => ({
+                user: req.body.userId,
+                amount: val,
+            }))
         )
 
         return res.status(200).json({
